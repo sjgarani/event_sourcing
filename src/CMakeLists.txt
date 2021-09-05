@@ -5,5 +5,3 @@ file(GLOB_RECURSE SOURCES LIST_DIRECTORIES true *.hpp *.cpp)
 set (SOURCES ${SOURCES})
 
 add_library(${BINARY}_lib STATIC ${SOURCES})
-
-target_link_libraries(${BINARY}_lib PRIVATE nlohmann_json::nlohmann_json nlohmann_json_schema_validator)
