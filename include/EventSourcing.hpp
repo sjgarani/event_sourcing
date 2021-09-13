@@ -2,13 +2,12 @@
 #define EVENT_SOURCING_HPP
 
 #include <functional>
+#include "Event.hpp"
 
-template<class T, class R>
+template<typename Data, typename Result>
 class EventSourcing {
  public:
-    virtual R process(const T &) = 0;
-
-    virtual void setProcessCallback(std::function<R(const T &)>) = 0;
+    virtual Result Process(Event<Data, Result> &) = 0;
 };
 
 #endif

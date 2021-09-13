@@ -3,15 +3,13 @@
 
 #include "EventSourcing.hpp"
 
-template<class T, class R>
-class EventSourcingImpl : public EventSourcing<T, R> {
-    std::function<R(const T &)> callback;
+template<typename Data, typename Result>
+class EventSourcingImpl : public EventSourcing<Data, Result> {
+    Data data;
  public:
     EventSourcingImpl() = default;
 
-    inline R process(const T &input) { return callback(input); }
-
-    inline void setProcessCallback(std::function<R(const T &)> callback_) { callback = callback_; }
+    inline Result Process(Event<Data, Result> &event) { return event.Handle(data); }
 };
 
 #endif
