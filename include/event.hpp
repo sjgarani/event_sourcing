@@ -6,9 +6,8 @@
 template<typename Data, typename Result>
 class Event {
  public:
-    virtual std::string GetName() const = 0;
-    virtual std::string ToString() const = 0;
     virtual Result Handle(Data &) = 0;
+    virtual std::string ToString() const = 0;
 };
 
 #endif

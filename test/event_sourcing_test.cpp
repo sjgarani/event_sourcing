@@ -20,7 +20,8 @@ TEST_F(EventSourcingTest, event_source_get_data) {
 }
 
 TEST_F(EventSourcingTest, event_source_process_success) {
-    EventImpl event;
+    std::shared_ptr<Event<Input, Output>> event = std::make_shared<EventImpl>();
     Output result = eventSourcing->Process(event);
+    std::cout << eventSourcing->ToString() << std::endl;
     EXPECT_EQ(input.output, result);
 }

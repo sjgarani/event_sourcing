@@ -16,7 +16,8 @@ bool operator==(const Input &lhs, const Input &rhs) { return lhs.output == rhs.o
 
 class EventImpl : public Event<Input, Output> {
  public:
-    inline std::string GetName() const override { return "Test Event"; }
+    EventImpl() {}
+    EventImpl(const EventImpl &) {}
     inline std::string ToString() const override { return "Test Event String"; }
     inline Output Handle(Input &input) override { return input.output; }
 };

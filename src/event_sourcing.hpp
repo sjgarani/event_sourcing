@@ -2,6 +2,7 @@
 #define EVENT_SOURCING_HPP
 
 #include <functional>
+#include <memory>
 #include "event.hpp"
 #include "context_data.hpp"
 
@@ -12,11 +13,13 @@ class EventSourcing {
  public:
     EventSourcing() = default;
 
-    inline Result Process(Event<Data, Result> &event) {
+    inline Result Process(std::shared_ptr<Event<Data, Result>> event) {
         return context.Execute(event, true);
     }
 
-    inline Data GetData() { return context.GetData(); }
+    inline Data GetData() const { return context.GetData(); }
+
+    inline std::string ToString() const { return context.ToString(); }
 };
 
 #endif
