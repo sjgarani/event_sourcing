@@ -2,31 +2,32 @@
 #define ContextData_HPP
 
 #include <vector>
+#include <utility>
 #include "event.hpp"
 
 template<typename Data, typename Result>
 class ContextData {
     Data active;
     Data candidate;
-    std::vector<Event<Data, Result>> events;
-    std::vector<Event<Data, Result>> candidates;
+    std::vector<std::pair<std::string, std::string>> events;
+    std::vector<std::pair<std::string, std::string>> candidates;
  public:
     inline Result Execute(Event<Data, Result> &event, bool apply) {
         Result result;
         if (apply) {
             candidate = active;
             result = event.Handle(candidate);
-            // events.push_back(event);
+            events.push_back({event.GetName(), event.ToString()});
         } else {
             result = event.Handle(candidate);
-            // candidates.push_back(event);
+            candidates.push_back({event.GetName(), event.ToString()});
         }
         return result;
     }
 
     inline void Commit() {
         if (!candidates.empty()) {
-            events.insert(candidates.begin(), candidates.end());
+            events.insert(events.end(), candidates.begin(), candidates.end());
             candidates.clear();
         }
         active = candidate;
